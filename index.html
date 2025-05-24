@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>벤처투자 소득공제 시뮬레이터</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="main-header">벤처투자 소득공제 시뮬레이터</h1>
+        
+        <div class="input-section">
+            <div class="input-group">
+                <label for="income">연간 총급여액</label>
+                <input type="number" id="income" value="50000000" step="1000000" min="0">
+            </div>
+            
+            <div class="input-group">
+                <label for="creditCard">신용카드 등 사용금액</label>
+                <input type="number" id="creditCard" value="20000000" step="1000000" min="0">
+            </div>
+            
+            <button onclick="calculate()" class="calculate-btn">계산하기</button>
+        </div>
+        
+        <div class="results">
+            <div class="metric-container">
+                <div class="metric-card primary">
+                    <h3>총공제금액</h3>
+                    <p class="amount" id="totalDeductions">0원</p>
+                </div>
+                
+                <div class="metric-card accent">
+                    <h3>산출세액</h3>
+                    <p class="amount" id="calculatedTax">0원</p>
+                </div>
+            </div>
+            
+            <div class="deduction-details">
+                <h3>공제 상세내역</h3>
+                <div id="deductionDetails"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
