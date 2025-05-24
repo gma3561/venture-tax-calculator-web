@@ -363,6 +363,21 @@ body {
     background-color: var(--background-light);
 }
 
+.comparison-table td:last-child {
+    font-weight: 700;
+    color: var(--primary-dark);
+}
+
+.comparison-table tr.total-row {
+    background-color: var(--primary-light);
+    font-weight: 700;
+}
+
+.comparison-table tr.total-row td {
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+}
+
 .highlight-box {
     background: var(--background);
     border: 1px solid var(--border);
@@ -525,6 +540,23 @@ body {
     margin-top: 1rem;
 }
 
+/* 비교 테이블 컨테이너 */
+.comparison-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -1rem;
+    padding: 0 1rem;
+}
+
+/* 환급액 표시 */
+.refund-amount {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--positive);
+    text-align: center;
+    margin: 1rem 0;
+}
+
 /* 모바일 대응 */
 @media (max-width: 768px) {
     .container {
@@ -548,19 +580,24 @@ body {
     
     .tabs {
         flex-direction: column;
+        gap: 0.3rem;
     }
     
     .tab-button {
         width: 100%;
+        min-height: 48px;
+        font-size: 0.9rem;
+        padding: 0.8rem;
     }
     
     .comparison-table {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
+        min-width: 500px;
     }
     
     .comparison-table td,
     .comparison-table th {
-        padding: 0.7rem 0.5rem;
+        padding: 0.8rem 0.6rem;
         white-space: nowrap;
     }
     
@@ -568,5 +605,48 @@ body {
         flex-direction: column;
         text-align: center;
         gap: 0.5rem;
+    }
+    
+    /* 터치 친화적인 입력 필드 */
+    input[type="number"] {
+        font-size: 16px; /* iOS 확대 방지 */
+        min-height: 44px;
+    }
+    
+    .calculate-btn {
+        min-height: 48px;
+    }
+    
+    /* 작은 텍스트 개선 */
+    .description, .sub, .note {
+        font-size: 0.9rem !important;
+    }
+    
+    .refund-amount {
+        font-size: 1.5rem;
+    }
+}
+
+/* 초소형 화면 */
+@media (max-width: 480px) {
+    .tabs {
+        font-size: 0.85rem;
+    }
+    
+    .tab-button {
+        padding: 0.7rem 0.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .input-section {
+        padding: 1.5rem 1rem;
+    }
+    
+    .summary-card .amount {
+        font-size: 1.4rem;
+    }
+    
+    .comparison-table {
+        font-size: 0.85rem;
     }
 }

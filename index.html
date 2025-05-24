@@ -101,13 +101,36 @@
 
             <!-- 탭 메뉴 -->
             <div class="tabs">
-                <button class="tab-button active" onclick="showTab('tax-bracket')">💡 세율 구간 분석</button>
-                <button class="tab-button" onclick="showTab('deduction-detail')">📊 공제 항목 상세</button>
-                <button class="tab-button" onclick="showTab('investment-analysis')">💰 투자 효율성 평가</button>
+                <button class="tab-button active" onclick="showTab('comparison')">📊 투자 전후 비교</button>
+                <button class="tab-button" onclick="showTab('tax-bracket')">💡 세율 구간 분석</button>
+                <button class="tab-button" onclick="showTab('deduction-detail')">📋 공제 항목 상세</button>
+                <button class="tab-button" onclick="showTab('investment-analysis')">💰 투자 효율성</button>
             </div>
 
             <!-- 탭 컨텐츠 -->
-            <div class="tab-content" id="tax-bracket">
+            <div class="tab-content" id="comparison">
+                <h3>📊 벤처투자 전후 비교</h3>
+                <div class="comparison-container">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>투자 전</th>
+                                <th>투자 후</th>
+                                <th>차이</th>
+                            </tr>
+                        </thead>
+                        <tbody id="comparisonTable">
+                        </tbody>
+                    </table>
+                </div>
+                <div class="highlight-box">
+                    <p><strong>예상 환급액</strong></p>
+                    <p id="expectedRefund" class="refund-amount"></p>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="tax-bracket" style="display: none;">
                 <h3>📊 벤처투자 소득공제 전후 세율 구간</h3>
                 <table class="comparison-table">
                     <thead>

@@ -275,6 +275,65 @@ function calculate() {
     document.getElementById('roi').textContent = roi.toFixed(1) + '%';
     document.getElementById('netProfit').textContent = '실 순수익: ' + formatNumber(netProfit);
     
+    // 투자 전후 비교 테이블
+    const comparisonData = [
+        {
+            label: '과세표준',
+            pre: preVentureTaxable,
+            post: postVentureTaxable,
+            diff: preVentureTaxable - postVentureTaxable
+        },
+        {
+            label: '산출세액',
+            pre: taxPreRaw,
+            post: taxPostRaw,
+            diff: taxPreRaw - taxPostRaw
+        },
+        {
+            label: '근로소득세액공제',
+            pre: Math.min(taxCredit, taxPreRaw),
+            post: Math.min(taxCredit, taxPostRaw),
+            diff: 0
+        },
+        {
+            label: '결정세액 (소득세)',
+            pre: taxPreAfter,
+            post: taxPostAfter,
+            diff: taxPreAfter - taxPostAfter
+        },
+        {
+            label: '지방소득세',
+            pre: localPre,
+            post: localPost,
+            diff: localPre - localPost
+        }
+    ];
+    
+    let comparisonHTML = '';
+    comparisonData.forEach(item => {
+        comparisonHTML += `
+            <tr>
+                <td>${item.label}</td>
+                <td>${formatNumber(item.pre)}</td>
+                <td>${formatNumber(item.post)}</td>
+                <td>${item.diff > 0 ? '-' + formatNumber(item.diff) : formatNumber(Math.abs(item.diff))}</td>
+            </tr>
+        `;
+    });
+    
+    // 총합 행 추가
+    comparisonHTML += `
+        <tr class="total-row">
+            <td>총 납부세액</td>
+            <td>${formatNumber(totalTaxPre)}</td>
+            <td>${formatNumber(totalTaxPost)}</td>
+            <td>-${formatNumber(refund)}</td>
+        </tr>
+    `;
+    
+    document.getElementById('comparisonTable').innerHTML = comparisonHTML;
+    document.getElementById('expectedRefund').innerHTML = `벤처투자로 인한 예상 환급액: <strong>${formatNumber(refund)}</strong>`;
+    
     // 세율 구간 분석
     const preBracket = getTaxBracketInfo(preVentureTaxable);
     const postBracket = getTaxBracketInfo(postVentureTaxable);
