@@ -10,37 +10,185 @@
     <div class="container">
         <h1 class="main-header">벤처투자 소득공제 시뮬레이터</h1>
         
+        <!-- 소개 카드 -->
+        <div class="intro-cards">
+            <div class="intro-card">
+                <div class="icon">💸</div>
+                <h3>세금 절약 계산</h3>
+                <p>벤처기업 투자로 얼마나 세금을 절약할 수 있는지 계산해보세요.</p>
+            </div>
+            <div class="intro-card">
+                <div class="icon">📊</div>
+                <h3>세율 구간 분석</h3>
+                <p>소득공제 전후의 세율 구간 변화와 한계세율 효과를 확인하세요.</p>
+            </div>
+            <div class="intro-card">
+                <div class="icon">💰</div>
+                <h3>투자 수익성 분석</h3>
+                <p>현금 리턴과 세금 절감을 통한 최종 수익률을 확인하세요.</p>
+            </div>
+        </div>
+
+        <!-- 사용 방법 -->
+        <div class="usage-guide">
+            <h3>📋 사용 방법</h3>
+            <ol>
+                <li><strong>소득 정보 입력:</strong> 총급여액, 신용카드 사용액, 부양가족 정보를 입력하세요.</li>
+                <li><strong>계산하기 버튼 클릭:</strong> 모든 정보 입력 후 계산하기 버튼을 클릭하면 결과가 표시됩니다.</li>
+                <li><strong>결과 확인:</strong> 세율 구간 분석, 공제 항목 상세, 투자 효율성을 확인하세요.</li>
+            </ol>
+        </div>
+
+        <!-- 입력 섹션 -->
         <div class="input-section">
+            <h2>💰 소득 정보 입력</h2>
+            
             <div class="input-group">
-                <label for="income">연간 총급여액</label>
+                <label for="income">📌 총급여액 <span class="required">필수</span></label>
                 <input type="number" id="income" value="50000000" step="1000000" min="0">
+                <div class="current-value">
+                    <p>현재 총급여액</p>
+                    <p class="amount" id="currentIncome">50,000,000원</p>
+                </div>
             </div>
             
             <div class="input-group">
-                <label for="creditCard">신용카드 등 사용금액</label>
+                <label for="creditCard">💳 연간 신용카드 예상 사용 금액</label>
                 <input type="number" id="creditCard" value="20000000" step="1000000" min="0">
+                <div class="current-value">
+                    <p>연간 신용카드 사용액</p>
+                    <p class="amount" id="currentCreditCard">20,000,000원</p>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <h3>👨‍👩‍👧‍👦 추가 소득공제 항목</h3>
+                <div class="sub-input">
+                    <label for="dependent">부양가족 수 (기본공제 1인당 150만원)</label>
+                    <input type="number" id="dependent" value="0" min="0">
+                </div>
+                <div class="sub-input">
+                    <label for="elderly">경로우대 대상자 수 (추가공제 1인당 100만원)</label>
+                    <input type="number" id="elderly" value="0" min="0">
+                </div>
             </div>
             
             <button onclick="calculate()" class="calculate-btn">계산하기</button>
         </div>
         
-        <div class="results">
-            <div class="metric-container">
-                <div class="metric-card primary">
-                    <h3>총공제금액</h3>
-                    <p class="amount" id="totalDeductions">0원</p>
-                </div>
-                
-                <div class="metric-card accent">
-                    <h3>산출세액</h3>
-                    <p class="amount" id="calculatedTax">0원</p>
-                </div>
-            </div>
+        <!-- 결과 섹션 -->
+        <div class="results" id="results" style="display: none;">
+            <h2>💰 벤처투자 소득공제 시뮬레이션 결과</h2>
             
-            <div class="deduction-details">
-                <h3>공제 상세내역</h3>
-                <div id="deductionDetails"></div>
+            <!-- 상단 요약 카드 -->
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <p class="label">실제 투자 비용</p>
+                    <p class="amount" id="actualCost">0원</p>
+                    <p class="description">투자금액 - 현금리턴</p>
+                </div>
+                <div class="summary-card">
+                    <p class="label">총 절세 효과</p>
+                    <p class="amount positive" id="taxSaving">+0원</p>
+                    <p class="description">소득공제를 통한 절세 효과</p>
+                </div>
+                <div class="summary-card">
+                    <p class="label">투자 수익률</p>
+                    <p class="amount positive" id="roi">0%</p>
+                    <p class="description" id="netProfit">실 순수익: 0원</p>
+                </div>
             </div>
+
+            <!-- 탭 메뉴 -->
+            <div class="tabs">
+                <button class="tab-button active" onclick="showTab('tax-bracket')">💡 세율 구간 분석</button>
+                <button class="tab-button" onclick="showTab('deduction-detail')">📊 공제 항목 상세</button>
+                <button class="tab-button" onclick="showTab('investment-analysis')">💰 투자 효율성 평가</button>
+            </div>
+
+            <!-- 탭 컨텐츠 -->
+            <div class="tab-content" id="tax-bracket">
+                <h3>📊 벤처투자 소득공제 전후 세율 구간</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>과세표준</th>
+                            <th>세율 구간</th>
+                            <th>한계세율</th>
+                        </tr>
+                    </thead>
+                    <tbody id="taxBracketTable">
+                    </tbody>
+                </table>
+                <div class="highlight-box">
+                    <p><strong>벤처투자 소득공제 효과</strong></p>
+                    <p id="taxBracketEffect"></p>
+                </div>
+            </div>
+
+            <div class="tab-content" id="deduction-detail" style="display: none;">
+                <h3>📝 자동 계산된 공제 항목</h3>
+                <div class="deduction-cards" id="deductionCards"></div>
+                <div class="total-deduction">
+                    <p>총 공제금액</p>
+                    <p class="amount" id="totalDeduction">0원</p>
+                </div>
+                <p class="note">* 각 항목별 공제금액과 전체 공제금액 대비 비율을 나타냅니다.</p>
+            </div>
+
+            <div class="tab-content" id="investment-analysis" style="display: none;">
+                <div class="investment-box">
+                    <h3>투자 효율성 평가</h3>
+                    <div class="investment-item">
+                        <p class="label">투자 금액</p>
+                        <p class="value">30,000,000원</p>
+                        <p class="sub">현금 리턴: 25,000,000원</p>
+                    </div>
+                    <div class="investment-item">
+                        <p class="label">실제 투자 비용</p>
+                        <p class="value" id="investActualCost">5,000,000원</p>
+                        <p class="sub">투자금액 - 현금리턴</p>
+                    </div>
+                    <div class="investment-item">
+                        <p class="label">세금 절감액</p>
+                        <p class="value positive" id="investTaxBenefit">+ 0원</p>
+                        <p class="sub">소득공제를 통한 절세 효과</p>
+                    </div>
+                    <div class="investment-item">
+                        <p class="label">투자 수익률</p>
+                        <p class="value positive" id="investROI">0%</p>
+                        <p class="sub" id="investNetProfit">실 순수익: 0원</p>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="reset()" class="calculate-btn">다시 계산하기</button>
+        </div>
+
+        <!-- 벤처투자 안내 -->
+        <div class="venture-info">
+            <h3>💡 벤처투자 세제혜택 안내</h3>
+            <p>벤처기업에 투자하면 투자금액에 대해 소득공제를 받을 수 있습니다. 소득공제율은 다음과 같습니다:</p>
+            <table class="info-table">
+                <tr>
+                    <th>투자 금액</th>
+                    <th>소득공제율</th>
+                </tr>
+                <tr>
+                    <td>3천만원 이하</td>
+                    <td>100%</td>
+                </tr>
+                <tr>
+                    <td>3천만원 초과 ~ 5천만원 이하</td>
+                    <td>70%</td>
+                </tr>
+                <tr>
+                    <td>5천만원 초과</td>
+                    <td>30%</td>
+                </tr>
+            </table>
+            <p class="disclaimer">* 본 시뮬레이터는 정확한 세금 계산을 보장하지 않으며 참고용으로만 사용하세요.</p>
         </div>
     </div>
     

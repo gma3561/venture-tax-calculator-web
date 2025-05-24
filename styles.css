@@ -6,9 +6,15 @@
     --accent-light: #d1fae5;
     --text-primary: #1e293b;
     --text-secondary: #475569;
+    --text-light: #64748b;
     --background: #fff;
     --background-light: #f8fafc;
     --border: #e2e8f0;
+    --border-light: #f1f5f9;
+    --positive: #10b981;
+    --positive-light: #d1fae5;
+    --negative: #ef4444;
+    --negative-light: #fee2e2;
 }
 
 * {
@@ -18,8 +24,8 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background-color: var(--background-light);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--background);
     color: var(--text-primary);
     line-height: 1.6;
 }
@@ -31,149 +37,534 @@ body {
 }
 
 .main-header {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
     font-weight: 700;
     text-align: center;
-    margin: 2rem 0;
+    margin: 1.5rem 0 1rem 0;
     color: var(--primary-dark);
+    padding: 0.5rem 0;
+    border-bottom: 2px solid var(--primary-light);
 }
 
+/* 소개 카드 */
+.intro-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.intro-card {
+    background: var(--background);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 6px 15px -3px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.intro-card:hover {
+    box-shadow: 0 12px 20px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    border-color: var(--primary-light);
+}
+
+.intro-card .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.intro-card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+}
+
+.intro-card p {
+    color: var(--text-secondary);
+}
+
+/* 사용 방법 */
+.usage-guide {
+    background: var(--background);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin: 2rem 0;
+    box-shadow: 0 6px 15px -3px rgba(0, 0, 0, 0.08);
+}
+
+.usage-guide h3 {
+    color: var(--primary-dark);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 3px solid var(--primary-light);
+}
+
+.usage-guide ol {
+    padding-left: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.usage-guide li {
+    margin-bottom: 0.8rem;
+}
+
+/* 입력 섹션 */
 .input-section {
     background: var(--background);
     padding: 2rem;
     border-radius: 12px;
-    margin-bottom: 2rem;
+    margin: 2rem 0;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border);
+}
+
+.input-section h2 {
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
 .input-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    background: var(--background-light);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.input-group h3 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
 }
 
 .input-group label {
     display: block;
     margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: var(--text-secondary);
+    font-weight: 600;
+    color: var(--text-primary);
 }
 
 .input-group input {
     width: 100%;
-    padding: 0.75rem;
-    font-size: 1rem;
-    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
+    border: 1px solid var(--primary);
     border-radius: 8px;
-    transition: border-color 0.2s;
+    transition: all 0.2s;
+    text-align: right;
+    font-weight: 600;
+    color: var(--primary-dark);
 }
 
 .input-group input:focus {
     outline: none;
     border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.required {
+    color: var(--negative);
+    font-weight: 600;
+    background-color: var(--negative-light);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.current-value {
+    background: var(--primary-light);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.current-value p:first-child {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+}
+
+.current-value .amount {
+    color: var(--primary-dark);
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.sub-input {
+    margin-bottom: 1rem;
+}
+
+.sub-input label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
 .calculate-btn {
     width: 100%;
-    padding: 1rem;
-    font-size: 1.1rem;
-    font-weight: 600;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-weight: 700;
     color: white;
     background-color: var(--primary);
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .calculate-btn:hover {
     background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
+/* 결과 섹션 */
 .results {
-    opacity: 0;
-    transition: opacity 0.3s ease-in;
+    margin-top: 2rem;
 }
 
-.results.show {
-    opacity: 1;
-}
-
-.metric-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
+.results h2 {
+    color: var(--primary-dark);
+    text-align: center;
     margin-bottom: 2rem;
 }
 
-.metric-card {
+/* 요약 카드 */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.summary-card {
     background: var(--background);
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     text-align: center;
+    border: 1px solid var(--border);
 }
 
-.metric-card.primary {
-    border-left: 4px solid var(--primary);
-}
-
-.metric-card.accent {
-    border-left: 4px solid var(--accent);
-}
-
-.metric-card h3 {
+.summary-card .label {
     color: var(--text-secondary);
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-bottom: 0.5rem;
 }
 
-.metric-card .amount {
-    color: var(--text-primary);
-    font-size: clamp(1.25rem, 4vw, 1.75rem);
-    font-weight: 600;
+.summary-card .amount {
+    color: var(--primary-dark);
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+    height: 45px;
 }
 
-.deduction-details {
+.summary-card .amount.positive {
+    color: var(--positive);
+}
+
+.summary-card .description {
+    color: var(--text-light);
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    height: 35px;
+}
+
+/* 탭 */
+.tabs {
+    background: var(--background);
+    border-radius: 8px;
+    padding: 5px;
+    border: 1px solid var(--border-light);
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.tab-button:hover {
+    background: var(--background-light);
+}
+
+.tab-button.active {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 700;
+}
+
+.tab-content {
     background: var(--background);
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border);
 }
 
-.deduction-details h3 {
+.tab-content h3 {
+    color: var(--primary-dark);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid var(--primary-light);
+}
+
+/* 비교 테이블 */
+.comparison-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.comparison-table th {
+    background-color: var(--primary-light);
+    padding: 1rem 1.2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.comparison-table td {
+    padding: 1.2rem;
+    text-align: right;
+    border-bottom: 1px solid var(--border-light);
     color: var(--text-primary);
-    margin-bottom: 1rem;
+    background-color: var(--background);
+    font-size: 1.05rem;
 }
 
-.detail-card {
+.comparison-table td:first-child {
+    text-align: left;
+    font-weight: 600;
+    background-color: var(--background-light);
+}
+
+.highlight-box {
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.highlight-box p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* 공제 카드 */
+.deduction-cards {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.deduction-card {
+    background: var(--background-light);
+    padding: 1.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    background: var(--background-light);
-    border: 1px solid var(--border);
-    border-radius: 8px;
+}
+
+.deduction-card .item-info p:first-child {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.1rem;
     margin-bottom: 0.5rem;
 }
 
-.detail-label {
+.deduction-card .item-info p:last-child {
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.deduction-card .percentage {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.total-deduction {
+    background: var(--primary-light);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.total-deduction p:first-child {
+    color: var(--primary-dark);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.total-deduction .amount {
+    color: var(--primary-dark);
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.note {
     color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 1rem;
 }
 
-.detail-amount {
+/* 투자 분석 */
+.investment-box {
+    padding: 2rem;
+    text-align: center;
+}
+
+.investment-box h3 {
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--primary-dark);
+    font-size: 1.4rem;
+}
+
+.investment-item {
+    margin-bottom: 2rem;
+    background: var(--background-light);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.investment-item .label {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.investment-item .value {
     color: var(--text-primary);
-    font-weight: 500;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
+.investment-item .value.positive {
+    color: var(--positive);
+}
+
+.investment-item .sub {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+}
+
+/* 벤처투자 안내 */
+.venture-info {
+    background: var(--background);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin: 2rem 0;
+    box-shadow: 0 6px 15px -3px rgba(0, 0, 0, 0.08);
+}
+
+.venture-info h3 {
+    color: var(--primary-dark);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.info-table {
+    width: 100%;
+    margin: 1rem 0;
+    border-collapse: collapse;
+}
+
+.info-table th,
+.info-table td {
+    padding: 1rem;
+    text-align: left;
+    border: 1px solid var(--border);
+}
+
+.info-table th {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    font-weight: 600;
+}
+
+.disclaimer {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+/* 모바일 대응 */
 @media (max-width: 768px) {
     .container {
         padding: 0.5rem;
     }
     
-    .input-section {
-        padding: 1.5rem;
+    .main-header {
+        font-size: 1.3rem;
+        margin-top: 0.8rem;
+        padding: 0 0.5rem;
     }
     
-    .detail-card {
+    .intro-cards {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .tabs {
+        flex-direction: column;
+    }
+    
+    .tab-button {
+        width: 100%;
+    }
+    
+    .comparison-table {
+        font-size: 0.85rem;
+    }
+    
+    .comparison-table td,
+    .comparison-table th {
+        padding: 0.7rem 0.5rem;
+        white-space: nowrap;
+    }
+    
+    .deduction-card {
         flex-direction: column;
         text-align: center;
         gap: 0.5rem;
